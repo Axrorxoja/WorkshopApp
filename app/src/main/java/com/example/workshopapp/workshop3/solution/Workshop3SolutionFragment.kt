@@ -7,11 +7,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.workshopapp.R
-import com.example.workshopapp.workshop3.global.Workshop3ViewModelFactory
+import com.example.workshopapp.workshop3.global.LoginViewState
 
 class Workshop3SolutionFragment : Fragment(R.layout.fragment_workshop_1) {
 
-    private val viewModel: Workshop3SolutionViewModel by viewModels { Workshop3ViewModelFactory() }
+    private val viewModel: Workshop3SolutionViewModel by viewModels { Workshop3SolutionViewModelFactory() }
 
     private var userNameInput: EditText? = null
     private var passwordInput: EditText? = null
@@ -38,22 +38,25 @@ class Workshop3SolutionFragment : Fragment(R.layout.fragment_workshop_1) {
         super.onDestroyView()
     }
 
-    private fun setState(state: ViewState<Unit, String>) =
-        when (state) {
-            is ViewState.Loading -> {
+    private fun setState(state: LoginViewState) =
+        when {
+            state.isLoading -> {
                 setLoading(loading = true)
             }
-            is State.UserNameError -> {
+            state.userNameError != null -> {
                 setLoading(loading = false)
-                showUserNameError()
+                showUserNameError(state.userNameError)
             }
-            is Workshop3SolutionViewModel.State.PasswordError -> {
+            state.passwordError != null -> {
                 setLoading(loading = false)
-                showPasswordError()
+                showPasswordError(state.passwordError)
             }
-            is Workshop3SolutionViewModel.State.Success -> {
+            state.success -> {
                 setLoading(loading = false)
                 showSuccess()
+            }
+            else -> {
+                // TODO(Implemented new state detected)
             }
         }
 
@@ -62,12 +65,12 @@ class Workshop3SolutionFragment : Fragment(R.layout.fragment_workshop_1) {
         loader?.isVisible = loading
     }
 
-    private fun showUserNameError() {
-        userNameInput?.error = getString(R.string.ws01_ws02_user_name_error)
+    private fun showUserNameError(userNameError: String) {
+        userNameInput?.error = userNameError
     }
 
-    private fun showPasswordError() {
-        passwordInput?.error = getString(R.string.ws01_ws02_password_error)
+    private fun showPasswordError(passwordError: String) {
+        passwordInput?.error = passwordError
     }
 
     private fun showSuccess() {

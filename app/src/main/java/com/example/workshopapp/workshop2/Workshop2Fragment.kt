@@ -3,11 +3,9 @@ package com.example.workshopapp.workshop2
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.workshopapp.R
-import com.example.workshopapp.workshop2.global.Workshop2ViewModelFactory
 import com.example.workshopapp.workshop2.solution.Workshop2SolutionFragment
 
 class Workshop2Fragment : Fragment(R.layout.fragment_workshop_1){

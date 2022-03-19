@@ -9,6 +9,7 @@ import com.example.workshopapp.R
 import com.example.workshopapp.domain.login.LoginInteractor
 import com.example.workshopapp.domain.login.LoginResult
 import com.example.workshopapp.domain.resource.IResourceProvider
+import com.example.workshopapp.workshop3.global.LoginViewState
 import kotlinx.coroutines.launch
 
 class Workshop3SolutionViewModel(

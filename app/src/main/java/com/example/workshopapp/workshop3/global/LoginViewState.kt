@@ -1,6 +1,6 @@
-package com.example.workshopapp.workshop3.solution
+package com.example.workshopapp.workshop3.global
 
-data class LoginViewState(
+class LoginViewState(
     val isLoading: Boolean = false,
     val userNameError: String? = null,
     val passwordError: String? = null,

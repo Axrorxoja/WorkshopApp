@@ -6,7 +6,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.workshopapp.R
-import com.example.workshopapp.workshop3.global.Workshop3ViewModelFactory
+import com.example.workshopapp.workshop3.solution.Workshop3SolutionViewModelFactory
 
 class Workshop3Fragment : Fragment(R.layout.fragment_workshop_1) {
 

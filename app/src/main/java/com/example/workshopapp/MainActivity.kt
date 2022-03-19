@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.example.workshopapp.workshop1.Workshop1Fragment
 import com.example.workshopapp.workshop2.Workshop2Fragment
 import com.example.workshopapp.workshop3.Workshop3Fragment
-
+import com.example.workshopapp.workshop3.solution.Workshop3SolutionFragment
 
 class MainActivity : AppCompatActivity(), Router {
 
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), Router {
 
     override fun openWorkshop2() = openFragment(Workshop2Fragment.newInstance())
 
-    override fun openWorkshop3() = openFragment(Workshop3Fragment.newInstance())
+    override fun openWorkshop3() = openFragment(Workshop3SolutionFragment.newInstance())
 
     private fun openFragment(fragment: Fragment, addToBackStack: Boolean = true) {
         val transaction = supportFragmentManager.beginTransaction()
