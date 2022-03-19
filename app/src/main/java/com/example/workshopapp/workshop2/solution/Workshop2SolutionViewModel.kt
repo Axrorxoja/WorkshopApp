@@ -32,8 +32,8 @@ class Workshop2SolutionViewModel(
             val loginResult = interactor.login(userName = userName, password = password)
 
             when (loginResult) {
-                is LoginResult.Error.UserName -> _userNameError.postValue(resourceProvider.string(R.string.ws01_ws02_user_name_error))
-                is LoginResult.Error.Password -> _passwordError.postValue(resourceProvider.string(R.string.ws01_ws02_password_error))
+                is LoginResult.Error.UserName -> _userNameError.postValue(resourceProvider.string(R.string.user_name_error))
+                is LoginResult.Error.Password -> _passwordError.postValue(resourceProvider.string(R.string.password_error))
                 is LoginResult.Success -> _success.postValue(Unit)
             }
             _loading.postValue(false)

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.workshopapp.workshop1.Workshop1Fragment
+import com.example.workshopapp.workshop1.solution.Workshop1SolutionFragment
 import com.example.workshopapp.workshop2.Workshop2Fragment
+import com.example.workshopapp.workshop2.solution.Workshop2SolutionFragment
 import com.example.workshopapp.workshop3.Workshop3Fragment
 import com.example.workshopapp.workshop3.solution.Workshop3SolutionFragment
 

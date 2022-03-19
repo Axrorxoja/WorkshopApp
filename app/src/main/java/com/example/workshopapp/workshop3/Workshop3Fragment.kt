@@ -3,12 +3,13 @@ package com.example.workshopapp.workshop3
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.workshopapp.R
-import com.example.workshopapp.workshop3.solution.Workshop3SolutionViewModelFactory
+import com.example.workshopapp.workshop3.global.LoginViewState
 
-class Workshop3Fragment : Fragment(R.layout.fragment_workshop_1) {
+class Workshop3Fragment : Fragment(R.layout.fragment_login) {
 
     private val viewModel: Workshop3ViewModel by viewModels { Workshop3ViewModelFactory() }
 
@@ -24,11 +25,11 @@ class Workshop3Fragment : Fragment(R.layout.fragment_workshop_1) {
         initViews(view)
         setUpListeners()
 
-        // TODO 10: Subscribe on public LiveData with "Workshop2ViewModel.State" from viewModel.
+        // TODO 1: Subscribe on public LiveData with "Workshop2ViewModel.State" from viewModel.
         //  Use observe() method of LiveData.
         //  Pass "this.viewLifecycleOwner" as LifecycleOwner
         //  and { ... } lambda as lifecycle.Observer in parameters.
-        //  Update UI with "setState()" method from inside the lambda.
+        //  Update UI with "renderState()" method from inside the lambda.
     }
 
     override fun onDestroyView() {
@@ -41,52 +42,55 @@ class Workshop3Fragment : Fragment(R.layout.fragment_workshop_1) {
         super.onDestroyView()
     }
 
-    private fun setState(state: Workshop3ViewModel.State) =
-        when (state) {
-            is Workshop3ViewModel.State.Default -> {
+    private fun renderState(state: LoginViewState) =
+        when {
+            state.isDefault -> {
                 setLoading(loading = false)
             }
-            is Workshop3ViewModel.State.Loading -> {
+            state.isLoading -> {
                 setLoading(loading = true)
             }
-            is Workshop3ViewModel.State.UserNameError -> {
+            state.userNameError != null -> {
                 setLoading(loading = false)
-                showUserNameError()
+                showUserNameError(state.userNameError)
             }
-            is Workshop3ViewModel.State.PasswordError -> {
+            state.passwordError != null -> {
                 setLoading(loading = false)
-                showPasswordError()
+                showPasswordError(state.passwordError)
             }
-            is Workshop3ViewModel.State.Success -> {
+            state.success -> {
                 setLoading(loading = false)
                 showSuccess()
+            }
+            else -> {
+                // TODO(Implemented new state detected)
             }
         }
 
     private fun setLoading(loading: Boolean) {
-        //TODO 01: Depending on "loading" value, set "loader" visibility = View.VISIBLE/GONE.
-        // And opposite, set "loginBtn" disabled/enabled.
+        loginBtn?.isEnabled = !loading
+        loader?.isVisible = loading
     }
 
-    private fun showUserNameError() {
-        //TODO 02: Set error for "userNameInput" from strings resources (ws01_ws02_user_name_error).
+    private fun showUserNameError(userNameError: String) {
+        userNameInput?.error = userNameError
     }
 
-    private fun showPasswordError() {
-        //TODO 03: Set error for "passwordInput" from strings resources (ws01_ws02_password_error).
+    private fun showPasswordError(passwordError: String) {
+        passwordInput?.error = passwordError
     }
 
     private fun showSuccess() {
-        //TODO 04: Set "loginBtn" visibility = View.INVISIBLE.
-        // And opposite, set "loginSuccess" visibility = View.VISIBLE.
+        loginBtn?.isVisible = false
+        loginSuccess?.isVisible = true
     }
 
     private fun initViews(view: View) {
-        userNameInput = view.findViewById(R.id.fragment_workshop_1_workshop_2_user_name_input)
-        passwordInput = view.findViewById(R.id.fragment_workshop_1_workshop_2_password_input)
-        loginBtn = view.findViewById(R.id.fragment_workshop_1_workshop_2_login_btn)
-        loader = view.findViewById(R.id.fragment_workshop_1_workshop_2_loader)
-        loginSuccess = view.findViewById(R.id.fragment_workshop_1_workshop_2_login_success)
+        userNameInput = view.findViewById(R.id.fragment_login_user_name_input)
+        passwordInput = view.findViewById(R.id.fragment_login_password_input)
+        loginBtn = view.findViewById(R.id.fragment_login_login_btn)
+        loader = view.findViewById(R.id.fragment_login_loader)
+        loginSuccess = view.findViewById(R.id.fragment_login_success)
     }
 
     private fun setUpListeners() {
@@ -99,7 +103,9 @@ class Workshop3Fragment : Fragment(R.layout.fragment_workshop_1) {
         val inputUserName = userNameInput?.text?.toString().orEmpty()
         val inputPassword = passwordInput?.text?.toString().orEmpty()
 
-        //TODO 05: Call viewModel's "login()" method.
+        //TODO 02: Create LoginIntent.Login() instance
+        // with "inputUserName", "inputPassword"
+        // and pass viewModel's "dispatchIntent()" method
     }
 
     companion object {

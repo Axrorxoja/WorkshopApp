@@ -7,9 +7,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.workshopapp.R
+import com.example.workshopapp.workshop3.global.LoginIntent
 import com.example.workshopapp.workshop3.global.LoginViewState
 
-class Workshop3SolutionFragment : Fragment(R.layout.fragment_workshop_1) {
+class Workshop3SolutionFragment : Fragment(R.layout.fragment_login) {
 
     private val viewModel: Workshop3SolutionViewModel by viewModels { Workshop3SolutionViewModelFactory() }
 
@@ -25,7 +26,7 @@ class Workshop3SolutionFragment : Fragment(R.layout.fragment_workshop_1) {
         initViews(view)
         setUpListeners()
 
-        viewModel.state.observe(this.viewLifecycleOwner, this::setState)
+        viewModel.state.observe(this.viewLifecycleOwner, this::renderState)
     }
 
     override fun onDestroyView() {
@@ -38,8 +39,11 @@ class Workshop3SolutionFragment : Fragment(R.layout.fragment_workshop_1) {
         super.onDestroyView()
     }
 
-    private fun setState(state: LoginViewState) =
+    private fun renderState(state: LoginViewState) =
         when {
+            state.isDefault -> {
+                setLoading(loading = false)
+            }
             state.isLoading -> {
                 setLoading(loading = true)
             }
@@ -79,11 +83,11 @@ class Workshop3SolutionFragment : Fragment(R.layout.fragment_workshop_1) {
     }
 
     private fun initViews(view: View) {
-        userNameInput = view.findViewById(R.id.fragment_workshop_1_workshop_2_user_name_input)
-        passwordInput = view.findViewById(R.id.fragment_workshop_1_workshop_2_password_input)
-        loginBtn = view.findViewById(R.id.fragment_workshop_1_workshop_2_login_btn)
-        loader = view.findViewById(R.id.fragment_workshop_1_workshop_2_loader)
-        loginSuccess = view.findViewById(R.id.fragment_workshop_1_workshop_2_login_success)
+        userNameInput = view.findViewById(R.id.fragment_login_user_name_input)
+        passwordInput = view.findViewById(R.id.fragment_login_password_input)
+        loginBtn = view.findViewById(R.id.fragment_login_login_btn)
+        loader = view.findViewById(R.id.fragment_login_loader)
+        loginSuccess = view.findViewById(R.id.fragment_login_success)
     }
 
     private fun setUpListeners() {
@@ -96,7 +100,12 @@ class Workshop3SolutionFragment : Fragment(R.layout.fragment_workshop_1) {
         val inputUserName = userNameInput?.text?.toString().orEmpty()
         val inputPassword = passwordInput?.text?.toString().orEmpty()
 
-        viewModel.login(userName = inputUserName, password = inputPassword)
+        viewModel.dispatchIntent(
+            LoginIntent.Login(
+                userName = inputUserName,
+                password = inputPassword,
+            )
+        )
     }
 
     companion object {

@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import com.example.workshopapp.R
 import com.example.workshopapp.workshop2.solution.Workshop2SolutionFragment
 
-class Workshop2Fragment : Fragment(R.layout.fragment_workshop_1){
+class Workshop2Fragment : Fragment(R.layout.fragment_login){
 
     private val viewModel: Workshop2ViewModel by viewModels { Workshop2ViewModelFactory() }
 
@@ -69,11 +69,11 @@ class Workshop2Fragment : Fragment(R.layout.fragment_workshop_1){
     }
 
     private fun initViews(view: View) {
-        userNameInput = view.findViewById(R.id.fragment_workshop_1_workshop_2_user_name_input)
-        passwordInput = view.findViewById(R.id.fragment_workshop_1_workshop_2_password_input)
-        loginBtn = view.findViewById(R.id.fragment_workshop_1_workshop_2_login_btn)
-        loader = view.findViewById(R.id.fragment_workshop_1_workshop_2_loader)
-        loginSuccess = view.findViewById(R.id.fragment_workshop_1_workshop_2_login_success)
+        userNameInput = view.findViewById(R.id.fragment_login_user_name_input)
+        passwordInput = view.findViewById(R.id.fragment_login_password_input)
+        loginBtn = view.findViewById(R.id.fragment_login_login_btn)
+        loader = view.findViewById(R.id.fragment_login_loader)
+        loginSuccess = view.findViewById(R.id.fragment_login_success)
     }
 
     private fun setUpListeners() {

@@ -2,38 +2,33 @@ package com.example.workshopapp.workshop3
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.workshopapp.domain.login.LoginInteractor
-import com.example.workshopapp.domain.resource.IResourceProvider
-import com.example.workshopapp.domain.resource.ResourceProvider
+import com.example.workshopapp.domain.login.LoginFlowInteractor
+import com.example.workshopapp.domain.login.LoginResult
+import com.example.workshopapp.workshop3.global.LoginIntent
+import com.example.workshopapp.workshop3.global.LoginViewState
 import kotlinx.coroutines.launch
 
 class Workshop3ViewModel(
-    private val interactor: LoginInteractor,
-    private val resourceProvider: IResourceProvider,
+    private val interactor: LoginFlowInteractor,
+    private val reducer: (LoginViewState, LoginResult) -> LoginViewState,
 ) : ViewModel() {
 
-    //TODO 06: Create private property MutableLiveData for state storing.
-    // Pass initial value "State.Default" in constructor: MutableLiveData(State.Default()).
+    //TODO 04: For state storing create private MutableLiveData with default value of LoginViewState default true.
 
-    //TODO 07: Create public property LiveData as a getter to provide state outside.
+    //TODO 05: Create public property LiveData as a getter to provide state outside.
     // Init this public getter with your private MutableLiveData.
 
-    fun login(userName: String, password: String) {
-        viewModelScope.launch {
-            //TODO 08: Set "State.Loading()" to the private liveData's value.
-
-            val loginResult = interactor.login(userName = userName, password = password)
-
-            //TODO 09: Handle "loginResult" with "when()".
-            // Set actual "State. ...()" to the private liveData's value (success, errors).
-        }
+    fun dispatchIntent(loginIntent: LoginIntent) {
+        //TODO 06: Handle "loginIntent" with "when()"
+        // and in "LoginIntent.Login" state call "login" method
+        // others states could leave as {}
     }
 
-    sealed class State {
-        class Default : State()
-        class Loading : State()
-        class UserNameError : State()
-        class PasswordError : State()
-        class Success : State()
+    private fun login(userName: String, password: String) {
+        viewModelScope.launch {
+            //TODO 07: call "interactor.login"
+            //TODO 08: map with reducer old state you can got from livedata.value!!
+            //TODO 09: call collect and inside lambda set value to livedata
+        }
     }
 }

@@ -54,37 +54,6 @@ internal class Workshop1SolutionPresenterTest {
     }
 
     @Test
-    fun `assert login UserNameError few times`() = runBlockingTest {
-        val (interactor, presenter, view) = createComponents()
-
-        presenter.attachView(view)
-        view.assert(
-            expectedLoading = false,
-            expectedUserNameErrorShownTimes = 0,
-            expectedPasswordErrorShownTimes = 0,
-            expectedSuccessShownTimes = 0
-        )
-
-        repeat(10) { index ->
-            presenter.login(userName = "", password = "")
-            view.assert(
-                expectedLoading = true,
-                expectedUserNameErrorShownTimes = index,
-                expectedPasswordErrorShownTimes = 0,
-                expectedSuccessShownTimes = 0
-            )
-
-            testDispatcher.advanceTimeBy(LoginInteractor.DELAY_MILLIS)
-            view.assert(
-                expectedLoading = false,
-                expectedUserNameErrorShownTimes = (index + 1),
-                expectedPasswordErrorShownTimes = 0,
-                expectedSuccessShownTimes = 0
-            )
-        }
-    }
-
-    @Test
     fun `assert login PasswordError`() = runBlockingTest {
         val (interactor, presenter, view) = createComponents()
 

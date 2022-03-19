@@ -11,8 +11,8 @@
     <string name="ws01_ws02_user_name">User name</string>
     <string name="ws01_ws02_password">Password</string>
     <string name="ws01_ws02_login">Login</string>
-    <string name="ws01_ws02_user_name_error">User name error</string>
-    <string name="ws01_ws02_password_error">Password error</string>
+    <string name="user_name_error">User name error</string>
+    <string name="password_error">Password error</string>
     <string name="ws01_ws02_login_success">Login success!!!</string>
     <!-- WS01-WS02 -->
 
