@@ -43,6 +43,7 @@ class Workshop3SolutionViewModelTest {
     @Test
     fun `when Login intent dispatched should called interactor and reducer`() = runBlockingTest {
         val mockInteractor = mock<LoginFlowInteractor>{
+            //Stubbing when call login with any parameters stub return Loading state
             on { this.login(any(), any()) } doReturn flowOf(LoginResult.Loading)
         }
 
@@ -61,11 +62,13 @@ class Workshop3SolutionViewModelTest {
                 password = testPassword,
             )
         )
-
+        //Check is when "LoginIntent.Login" action dispatched "loginInteractor.login" method called with correct parameters
         verify(mockInteractor).login(
             userName = testUserName,
             password = testPassword,
         )
+
+        //Check is when "LoginIntent.Login" action dispatched "reducer" called
         verify(mockReducer).invoke(
             oldState = any(),
             result = any()
